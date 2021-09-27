@@ -1,8 +1,8 @@
-﻿USE [master]
+USE [master]
 GO
 USE [Entertainment]
 GO
-CREATE TABLE [dbo].[Agents$](
+CREATE TABLE [dbo].[Agents](
 	[Agent_ID] [nvarchar](255) NULL,
 	[Agent_F_Name] [nvarchar](255) NULL,
 	[Agent_L_Name] [nvarchar](255) NULL,
@@ -16,23 +16,23 @@ CREATE TABLE [dbo].[Agents$](
 	[Agent_Commission_Rate] [float] NULL
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Cust_Mus_Preferences$]    Script Date: 9/27/2021 2:25:19 PM ******/
+
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-CREATE TABLE [dbo].[Cust_Mus_Preferences$](
+CREATE TABLE [dbo].[Cust_Mus_Preferences](
 	[Cust_ID] [nvarchar](255) NULL,
 	[Music_Style_ID] [nvarchar](255) NULL,
 	[Cust_Mus_Preferences_Rating] [float] NULL
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Customers$]    Script Date: 9/27/2021 2:25:19 PM ******/
+
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-CREATE TABLE [dbo].[Customers$](
+CREATE TABLE [dbo].[Customers](
 	[Cust_ID] [nvarchar](255) NULL,
 	[Cust_F_Name] [nvarchar](255) NULL,
 	[Cust_L_Name] [nvarchar](255) NULL,
@@ -43,12 +43,12 @@ CREATE TABLE [dbo].[Customers$](
 	[Cust_Phone_Number] [nvarchar](255) NULL
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Engagements$]    Script Date: 9/27/2021 2:25:19 PM ******/
+
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-CREATE TABLE [dbo].[Engagements$](
+CREATE TABLE [dbo].[Engagements](
 	[Engag_Number] [float] NULL,
 	[Engag_Start_Date] [datetime] NULL,
 	[Engag_End_Date] [datetime] NULL,
@@ -60,12 +60,12 @@ CREATE TABLE [dbo].[Engagements$](
 	[Entertainer_ID] [nvarchar](255) NULL
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Entertainers$]    Script Date: 9/27/2021 2:25:19 PM ******/
+
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-CREATE TABLE [dbo].[Entertainers$](
+CREATE TABLE [dbo].[Entertainers](
 	[Entertainer_ID] [nvarchar](255) NULL,
 	[Entertainer_Stage_Name] [nvarchar](255) NULL,
 	[Entertainer_SSN] [nvarchar](255) NULL,
@@ -79,34 +79,34 @@ CREATE TABLE [dbo].[Entertainers$](
 	[Entertainer_Date_Entered] [datetime] NULL
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Entertainers_Members$]    Script Date: 9/27/2021 2:25:19 PM ******/
+
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-CREATE TABLE [dbo].[Entertainers_Members$](
+CREATE TABLE [dbo].[Entertainers_Members](
 	[Entertainer_ID] [nvarchar](255) NULL,
 	[Mbr_ID] [nvarchar](255) NULL,
 	[Entertainer_Members_Status] [float] NULL
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Entertainers_Style$]    Script Date: 9/27/2021 2:25:19 PM ******/
+
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-CREATE TABLE [dbo].[Entertainers_Style$](
+CREATE TABLE [dbo].[Entertainers_Style](
 	[Entertainer_ID] [nvarchar](255) NULL,
 	[Music_Style_ID] [nvarchar](255) NULL,
 	[Member_Style_Strength] [float] NULL
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Members$]    Script Date: 9/27/2021 2:25:19 PM ******/
+
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-CREATE TABLE [dbo].[Members$](
+CREATE TABLE [dbo].[Members](
 	[Mbr_ID] [nvarchar](255) NULL,
 	[Mbr_F_Name] [nvarchar](255) NULL,
 	[Mbr_L_Name] [nvarchar](255) NULL,
@@ -115,12 +115,12 @@ CREATE TABLE [dbo].[Members$](
 	[Mbr_Gender] [nvarchar](255) NULL
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Music_Style$]    Script Date: 9/27/2021 2:25:19 PM ******/
+
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-CREATE TABLE [dbo].[Music_Style$](
+CREATE TABLE [dbo].[Music_Style](
 	[Music_Style_ID] [nvarchar](255) NULL,
 	[Music_Style_Name] [nvarchar](255) NULL
 ) ON [PRIMARY]
