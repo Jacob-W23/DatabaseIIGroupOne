@@ -17,10 +17,7 @@ CREATE TABLE [dbo].[Agents](
 ) ON [PRIMARY]
 GO
 
-SET ANSI_NOT NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
+
 CREATE TABLE [dbo].[Cust_Mus_Preferences](
 	[Cust_ID] [varchar](5) NOT NULL,
 	[Music_Style_ID] [varchar](5) NOT NULL,
@@ -28,10 +25,7 @@ CREATE TABLE [dbo].[Cust_Mus_Preferences](
 ) ON [PRIMARY]
 GO
 
-SET ANSI_NOT NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
+
 CREATE TABLE [dbo].[Customers](
 	[Cust_ID] [varchar](5) NOT NULL,
 	[Cust_F_Name] [varchar](50) NOT NULL,
@@ -44,10 +38,6 @@ CREATE TABLE [dbo].[Customers](
 ) ON [PRIMARY]
 GO
 
-SET ANSI_NOT NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
 CREATE TABLE [dbo].[Engagements](
 	[Engag_Number] [varchar](5) NOT NULL,
 	[Engag_Start_Date] [date] NOT NULL,
@@ -61,10 +51,6 @@ CREATE TABLE [dbo].[Engagements](
 ) ON [PRIMARY]
 GO
 
-SET ANSI_NOT NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
 CREATE TABLE [dbo].[Entertainers](
 	[Entertainer_ID] [varchar](5) NOT NULL,
 	[Entertainer_Stage_Name] [varchar](50) NOT NULL,
@@ -80,10 +66,7 @@ CREATE TABLE [dbo].[Entertainers](
 ) ON [PRIMARY]
 GO
 
-SET ANSI_NOT NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
+
 CREATE TABLE [dbo].[Entertainers_Members](
 	[Entertainer_ID] [varchar](5) NOT NULL,
 	[Mbr_ID] [varchar](5) NOT NULL,
@@ -91,10 +74,7 @@ CREATE TABLE [dbo].[Entertainers_Members](
 ) ON [PRIMARY]
 GO
 
-SET ANSI_NOT NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
+
 CREATE TABLE [dbo].[Entertainers_Style](
 	[Entertainer_ID] [varchar](5) NOT NULL,
 	[Music_Style_ID] [varchar](5) NOT NULL,
@@ -102,10 +82,7 @@ CREATE TABLE [dbo].[Entertainers_Style](
 ) ON [PRIMARY]
 GO
 
-SET ANSI_NOT NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
+
 CREATE TABLE [dbo].[Members](
 	[Mbr_ID] [varchar](5) NOT NULL,
 	[Mbr_F_Name] [varchar](50) NOT NULL,
@@ -116,10 +93,6 @@ CREATE TABLE [dbo].[Members](
 ) ON [PRIMARY]
 GO
 
-SET ANSI_NOT NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
 CREATE TABLE [dbo].[Music_Style](
 	[Music_Style_ID] [varchar](5) NOT NULL,
 	[Music_Style_Name] [varchar](50) NOT NULL
