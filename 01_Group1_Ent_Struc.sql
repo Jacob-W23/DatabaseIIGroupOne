@@ -43,7 +43,7 @@ CREATE TABLE [dbo].[Customers](
 	[Cust_Phone_Number] [varchar](8) NOT NULL
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Engagements$]    Script Date: 9/27/2021 2:25:19 PM ******/
+
 SET ANSI_NOT NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -60,7 +60,7 @@ CREATE TABLE [dbo].[Engagements](
 	[Entertainer_ID] [varchar](5) NOT NULL
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Entertainers]    Script Date: 9/27/2021 2:25:19 PM ******/
+
 SET ANSI_NOT NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -115,7 +115,7 @@ CREATE TABLE [dbo].[Members](
 	[Mbr_Gender] [varchar](1) NOT NULL
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Music_Style]    Script Date: 9/27/2021 2:25:19 PM ******/
+
 SET ANSI_NOT NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
