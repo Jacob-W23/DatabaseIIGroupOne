@@ -1,5 +1,7 @@
 USE [master]
 GO
+CREATE DATABASE [Entertainment]
+GO
 USE [Entertainment]
 GO
 CREATE TABLE [dbo].[Agents](
