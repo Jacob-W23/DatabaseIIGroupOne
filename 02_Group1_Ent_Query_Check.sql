@@ -10,7 +10,7 @@ SELECT Agent_ID, CONCAT(Agent_F_Name,' ', Agent_L_Name) AS Agent_Name, Agent_Dat
 
 --4. Create a report of the net price per contract that lists our fee (contract price * our fee (12%)) and the net amount
 --per contract (contract price - (contract price * our fee (12%))
-SELECT (Engag_Contract_Price * 0.12) AS [Net Price], (Engag_Contract_Price-(Engag_Contract_Price * 0.12)) AS [Net Amount] FROM Engagements;
+SELECT FORMAT((Engag_Contract_Price * 0.12),'N2') AS [Net Price], FORMAT((Engag_Contract_Price-(Engag_Contract_Price * 0.12)),'N2') AS [Net Amount] FROM Engagements;
 
 --5. Create a report of all engagements that last more than 3 days
 SELECT * FROM Engagements
@@ -72,7 +72,7 @@ SELECT SUM(Engag_Contract_Price) AS [Value of Bookings in October 2017] FROM Eng
 WHERE Engag_Start_Date BETWEEN '2017-10-01' AND '2017-10-31';
 
 --18. Create a report of our agent sales and commissions. Report should have agent full name, the total contract price for that agent, and the earned commission for that agent
-SELECT (Agent_F_Name + ' ' + Agent_L_Name) AS [Agent Full Name], SUM(Engagements.Engag_Contract_Price) AS [Total Contract Price], (SUM(Engagements.Engag_Contract_Price) * Agent_Commission_Rate) AS [Earned Commission] FROM Agents
+SELECT (Agent_F_Name + ' ' + Agent_L_Name) AS [Agent Full Name], SUM(Engagements.Engag_Contract_Price) AS [Total Contract Price], FORMAT((SUM(Engagements.Engag_Contract_Price) * Agent_Commission_Rate),'N2') AS [Earned Commission] FROM Agents
 INNER JOIN Engagements ON Agents.Agent_ID = Engagements.Agent_ID
 GROUP BY (Agent_F_Name + ' ' + Agent_L_Name), Agent_Commission_Rate;
 
