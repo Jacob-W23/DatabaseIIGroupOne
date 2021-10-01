@@ -49,34 +49,16 @@ CREATE TABLE [dbo].[Customers](
 ) ON [PRIMARY]
 GO
 
-
 SET QUOTED_IDENTIFIER ON
 GO
-CREATE TABLE [dbo].[Cust_Mus_Preferences](
-	[Cust_ID] [varchar](5) NOT NULL,
+CREATE TABLE [dbo].[Music_Style](
 	[Music_Style_ID] [varchar](5) NOT NULL,
-	[Cust_Mus_Preferences_Rating] [smallint] NOT NULL
-	CONSTRAINT PK_CMP PRIMARY KEY (Cust_ID,Music_Style_ID),
+	[Music_Style_Name] [varchar](50) NOT NULL,
+	CONSTRAINT PK_Style PRIMARY KEY (Music_Style_ID),
+	CONSTRAINT chk_Style_ID CHECK(SUBSTRING(Music_Style_ID,1,1) = 'S' AND (CAST(SUBSTRING(Music_Style_ID, 2,2) AS INTEGER) BETWEEN 0 AND 9999))
 ) ON [PRIMARY]
 GO
 
-/****** Object:  Table [dbo].[Engagements$]    Script Date: 9/27/2021 2:25:19 PM ******/
-SET QUOTED_IDENTIFIER ON
-GO
-CREATE TABLE [dbo].[Engagements](
-	[Engag_Number] [varchar](5) NOT NULL,
-	[Engag_Start_Date] [date] NOT NULL,
-	[Engag_End_Date] [date] NOT NULL,
-	[Engag_Start_Time] [time] NOT NULL,
-	[Engag_Stop_Time] [time] NOT NULL,
-	[Engag_Contract_Price] [money] NOT NULL,
-	[Cust_ID] [varchar](5) NOT NULL,
-	[Agent_ID] [varchar](5) NOT NULL,
-	[Entertainer_ID] [varchar](5) NOT NULL,
-	CONSTRAINT PK_Engag PRIMARY KEY (Engag_Number)
-) ON [PRIMARY]
-GO
-/****** Object:  Table [dbo].[Entertainers]    Script Date: 9/27/2021 2:25:19 PM ******/
 SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[Entertainers](
@@ -105,26 +87,6 @@ GO
 
 SET QUOTED_IDENTIFIER ON
 GO
-CREATE TABLE [dbo].[Entertainers_Members](
-	[Entertainer_ID] [varchar](5) NOT NULL,
-	[Mbr_ID] [varchar](5) NOT NULL,
-	[Entertainer_Members_Status] [smallint] NOT NULL,
-	CONSTRAINT PK_EM PRIMARY KEY CLUSTERED ([Entertainer_ID],[Mbr_ID]),
-) ON [PRIMARY]
-GO
-
-SET QUOTED_IDENTIFIER ON
-GO
-CREATE TABLE [dbo].[Entertainers_Style](
-	[Entertainer_ID] [varchar](5) NOT NULL,
-	[Music_Style_ID] [varchar](5) NOT NULL,
-	[Member_Style_Strength] [SMALLINT] NOT NULL,
-	CONSTRAINT PK_ES PRIMARY KEY CLUSTERED ([Entertainer_ID],[Music_Style_ID])
-) ON [PRIMARY]
-GO
-
-SET QUOTED_IDENTIFIER ON
-GO
 CREATE TABLE [dbo].[Members](
 	[Mbr_ID] [varchar](5) NOT NULL,
 	[Mbr_F_Name] [varchar](50) NOT NULL,
@@ -138,71 +100,62 @@ CREATE TABLE [dbo].[Members](
 	CONSTRAINT chk_Member_Gender CHECK(Mbr_Gender IN ('M', 'F')) 
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Music_Style]    Script Date: 9/27/2021 2:25:19 PM ******/
+
 SET QUOTED_IDENTIFIER ON
 GO
-CREATE TABLE [dbo].[Music_Style](
-	[Music_Style_ID] [varchar](5) NOT NULL,
-	[Music_Style_Name] [varchar](50) NOT NULL,
-	CONSTRAINT PK_Style PRIMARY KEY (Music_Style_ID),
-	CONSTRAINT chk_Style_ID CHECK(SUBSTRING(Music_Style_ID,1,1) = 'S' AND (CAST(SUBSTRING(Music_Style_ID, 2,2) AS INTEGER) BETWEEN 0 AND 9999))
+CREATE TABLE [dbo].[Engagements](
+	[Engag_Number] [varchar](5) NOT NULL,
+	[Engag_Start_Date] [date] NOT NULL,
+	[Engag_End_Date] [date] NOT NULL,
+	[Engag_Start_Time] [time] NOT NULL,
+	[Engag_Stop_Time] [time] NOT NULL,
+	[Engag_Contract_Price] [money] NOT NULL,
+	[Cust_ID] [varchar](5) NOT NULL,
+	[Agent_ID] [varchar](5) NOT NULL,
+	[Entertainer_ID] [varchar](5) NOT NULL,
+	CONSTRAINT PK_Engag PRIMARY KEY (Engag_Number),
+	CONSTRAINT FK_Cust FOREIGN KEY (Cust_ID) REFERENCES Customers(Cust_ID),
+	CONSTRAINT FK_Agent FOREIGN KEY (Agent_ID) REFERENCES Agents(Agent_ID),
+	CONSTRAINT FK_Entertainer FOREIGN KEY (Entertainer_ID) REFERENCES Entertainers(Entertainer_ID)
 ) ON [PRIMARY]
 GO
 
---Alter table to add foreign keys
---Cust_Mus_Preferences
-ALTER TABLE [Cust_Mus_Preferences] WITH CHECK ADD CONSTRAINT [fk_cmp_cust] FOREIGN KEY([Cust_ID])
-REFERENCES [Customers] ([Cust_ID])
+--Linking Tables
+SET QUOTED_IDENTIFIER ON
 GO
-ALTER TABLE [Cust_Mus_Preferences] CHECK CONSTRAINT [fk_cmp_cust]
-GO
-ALTER TABLE [Cust_Mus_Preferences] WITH CHECK ADD CONSTRAINT [fk_cmp_style] FOREIGN KEY([Music_Style_ID])
-REFERENCES [Music_Style] ([Music_Style_ID])
-GO
-ALTER TABLE [Cust_Mus_Preferences] CHECK CONSTRAINT [fk_cmp_style]
-GO
-
---Engagements
-ALTER TABLE [Engagements] WITH CHECK ADD CONSTRAINT [fk_cust] FOREIGN KEY([Cust_ID])
-REFERENCES [Customers] ([Cust_ID])
-GO
-ALTER TABLE [Engagements] CHECK CONSTRAINT [fk_cust]
-GO
-ALTER TABLE [Engagements] WITH CHECK ADD CONSTRAINT [fk_agent] FOREIGN KEY([Agent_ID])
-REFERENCES [Agents] ([Agent_ID])
-GO
-ALTER TABLE [Engagements] CHECK CONSTRAINT [fk_agent]
-GO
-ALTER TABLE [Engagements] WITH CHECK ADD CONSTRAINT [fk_entertainer] FOREIGN KEY([Entertainer_ID])
-REFERENCES [Entertainers] ([Entertainer_ID])
-GO
-ALTER TABLE [Engagements] CHECK CONSTRAINT [fk_entertainer]
+CREATE TABLE [dbo].[Entertainers_Members](
+	[Entertainer_ID] [varchar](5) NOT NULL,
+	[Mbr_ID] [varchar](5) NOT NULL,
+	[Entertainer_Members_Status] [smallint] NOT NULL,
+	CONSTRAINT PK_EM PRIMARY KEY CLUSTERED ([Entertainer_ID],[Mbr_ID]),
+	CONSTRAINT FK_EM_Entertainer FOREIGN KEY (Entertainer_ID) REFERENCES Entertainers(Entertainer_ID),
+	CONSTRAINT FK_EM_Member FOREIGN KEY (Mbr_ID) REFERENCES Members(Mbr_ID)
+) ON [PRIMARY]
 GO
 
---Entertainer_Members
-ALTER TABLE [Entertainers_Members] WITH CHECK ADD CONSTRAINT [fk_em_entertainer] FOREIGN KEY([Entertainer_ID])
-REFERENCES [Entertainers] ([Entertainer_ID])
+SET QUOTED_IDENTIFIER ON
 GO
-ALTER TABLE [Entertainers_Members] CHECK CONSTRAINT [fk_em_entertainer]
-GO
-ALTER TABLE [Entertainers_Members] WITH CHECK ADD CONSTRAINT [fk_em_member] FOREIGN KEY([Mbr_ID])
-REFERENCES [Members] ([Mbr_ID])
-GO
-ALTER TABLE [Entertainers_Members] CHECK CONSTRAINT [fk_em_member]
-GO
-
---Entertainer_Style
-ALTER TABLE [Entertainers_Style] WITH CHECK ADD CONSTRAINT [fk_es_entertainer] FOREIGN KEY([Entertainer_ID])
-REFERENCES [Entertainers] ([Entertainer_ID])
-GO
-ALTER TABLE [Entertainers_Style] CHECK CONSTRAINT [fk_es_entertainer]
-GO
-ALTER TABLE [Entertainers_Style] WITH CHECK ADD CONSTRAINT [fk_es_style] FOREIGN KEY([Music_Style_ID])
-REFERENCES [Music_Style] ([Music_Style_ID])
-GO
-ALTER TABLE [Entertainers_Style] CHECK CONSTRAINT [fk_es_style]
+CREATE TABLE [dbo].[Entertainers_Style](
+	[Entertainer_ID] [varchar](5) NOT NULL,
+	[Music_Style_ID] [varchar](5) NOT NULL,
+	[Member_Style_Strength] [SMALLINT] NOT NULL,
+	CONSTRAINT PK_ES PRIMARY KEY CLUSTERED ([Entertainer_ID],[Music_Style_ID]),
+	CONSTRAINT FK_ES_Entertainer FOREIGN KEY (Entertainer_ID) REFERENCES Entertainers(Entertainer_ID),
+	CONSTRAINT FK_ES_Style FOREIGN KEY (Music_Style_ID) REFERENCES Music_Style(Music_Style_ID)
+) ON [PRIMARY]
 GO
 
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Cust_Mus_Preferences](
+	[Cust_ID] [varchar](5) NOT NULL,
+	[Music_Style_ID] [varchar](5) NOT NULL,
+	[Cust_Mus_Preferences_Rating] [smallint] NOT NULL
+	CONSTRAINT PK_CMP PRIMARY KEY (Cust_ID,Music_Style_ID),
+	CONSTRAINT FK_CMP_Cust FOREIGN KEY (Cust_ID) REFERENCES Customers(Cust_ID),
+	CONSTRAINT FK_CMP_Style FOREIGN KEY (Music_Style_ID) REFERENCES Music_Style(Music_Style_ID)
+) ON [PRIMARY]
+GO
 
 USE [master]
 GO
