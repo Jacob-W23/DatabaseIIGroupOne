@@ -56,7 +56,7 @@ CREATE TABLE [dbo].[Cust_Mus_Preferences](
 	[Cust_ID] [varchar](5) NOT NULL,
 	[Music_Style_ID] [varchar](5) NOT NULL,
 	[Cust_Mus_Preferences_Rating] [smallint] NOT NULL
-	CONSTRAINT PK_CMP PRIMARY KEY (Cust_ID,Music_Style_ID)
+	CONSTRAINT PK_CMP PRIMARY KEY (Cust_ID,Music_Style_ID),
 ) ON [PRIMARY]
 GO
 
@@ -99,7 +99,7 @@ CREATE TABLE [dbo].[Entertainers](
 	'NJ', 'NM', 'NY', 'NC', 'ND', 'OH', 'OK', 'OK', 'OR', 'PA', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VT', 'VA', 'WA', 'WV',
 	'WI', 'WY')),
 	CONSTRAINT chk_Entertainer_Zip_Code CHECK ([Entertainer_Zip_Code] LIKE '[0-9][0-9][0-9][0-9][0-9]'),
-	CONSTRAINT chk_Entertainer_Phone_Number CHECK ([Entertainer_Phone_Number] LIKE '[0-9][0-9][0-9]-[0-9][0-9][0-9][0-9]')
+	CONSTRAINT chk_Entertainer_Phone_Number CHECK ([Entertainer_Phone_Number] LIKE '[0-9][0-9][0-9]-[0-9][0-9][0-9][0-9]'),
 ) ON [PRIMARY]
 GO
 
@@ -148,6 +148,62 @@ CREATE TABLE [dbo].[Music_Style](
 	CONSTRAINT chk_Style_ID CHECK(SUBSTRING(Music_Style_ID,1,1) = 'S' AND (CAST(SUBSTRING(Music_Style_ID, 2,2) AS INTEGER) BETWEEN 0 AND 9999))
 ) ON [PRIMARY]
 GO
+
+--Alter table to add foreign keys
+--Cust_Mus_Preferences
+ALTER TABLE [Cust_Mus_Preferences] WITH CHECK ADD CONSTRAINT [fk_cmp_cust] FOREIGN KEY([Cust_ID])
+REFERENCES [Customers] ([Cust_ID])
+GO
+ALTER TABLE [Cust_Mus_Preferences] CHECK CONSTRAINT [fk_cmp_cust]
+GO
+ALTER TABLE [Cust_Mus_Preferences] WITH CHECK ADD CONSTRAINT [fk_cmp_style] FOREIGN KEY([Music_Style_ID])
+REFERENCES [Music_Style] ([Music_Style_ID])
+GO
+ALTER TABLE [Cust_Mus_Preferences] CHECK CONSTRAINT [fk_cmp_style]
+GO
+
+--Engagements
+ALTER TABLE [Engagements] WITH CHECK ADD CONSTRAINT [fk_cust] FOREIGN KEY([Cust_ID])
+REFERENCES [Customers] ([Cust_ID])
+GO
+ALTER TABLE [Engagements] CHECK CONSTRAINT [fk_cust]
+GO
+ALTER TABLE [Engagements] WITH CHECK ADD CONSTRAINT [fk_agent] FOREIGN KEY([Agent_ID])
+REFERENCES [Agents] ([Agent_ID])
+GO
+ALTER TABLE [Engagements] CHECK CONSTRAINT [fk_agent]
+GO
+ALTER TABLE [Engagements] WITH CHECK ADD CONSTRAINT [fk_entertainer] FOREIGN KEY([Entertainer_ID])
+REFERENCES [Entertainers] ([Entertainer_ID])
+GO
+ALTER TABLE [Engagements] CHECK CONSTRAINT [fk_entertainer]
+GO
+
+--Entertainer_Members
+ALTER TABLE [Entertainers_Members] WITH CHECK ADD CONSTRAINT [fk_em_entertainer] FOREIGN KEY([Entertainer_ID])
+REFERENCES [Entertainers] ([Entertainer_ID])
+GO
+ALTER TABLE [Entertainers_Members] CHECK CONSTRAINT [fk_em_entertainer]
+GO
+ALTER TABLE [Entertainers_Members] WITH CHECK ADD CONSTRAINT [fk_em_member] FOREIGN KEY([Mbr_ID])
+REFERENCES [Members] ([Mbr_ID])
+GO
+ALTER TABLE [Entertainers_Members] CHECK CONSTRAINT [fk_em_member]
+GO
+
+--Entertainer_Style
+ALTER TABLE [Entertainers_Style] WITH CHECK ADD CONSTRAINT [fk_es_entertainer] FOREIGN KEY([Entertainer_ID])
+REFERENCES [Entertainers] ([Entertainer_ID])
+GO
+ALTER TABLE [Entertainers_Style] CHECK CONSTRAINT [fk_es_entertainer]
+GO
+ALTER TABLE [Entertainers_Style] WITH CHECK ADD CONSTRAINT [fk_es_style] FOREIGN KEY([Music_Style_ID])
+REFERENCES [Music_Style] ([Music_Style_ID])
+GO
+ALTER TABLE [Entertainers_Style] CHECK CONSTRAINT [fk_es_style]
+GO
+
+
 USE [master]
 GO
 ALTER DATABASE [Entertainment] SET READ_WRITE 
