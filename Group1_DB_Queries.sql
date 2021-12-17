@@ -1,7 +1,7 @@
 --Query 1 Which people have which weapons
 
 SELECT DISTINCT PeopleFirstName, PeopleLastName, WeaponDescription FROM People a 
-INNER JOIN Transaction b ON b.PeopleID = a.PeopleID
+INNER JOIN Transactions b ON b.PeopleID = a.PeopleID
 INNER JOIN TransactionDetails c ON c.TransID = b.TransID
 INNER JOIN Weapons d ON d.WeaponID = c.WeaponID
 
@@ -14,7 +14,7 @@ INNER JOIN Jobs c ON c.JobID = b.JobID
 --Query 3 Which people own which item.
 
 SELECT DISTINCT PeopleFirstName, PeopleLastName, MiscDescription, MedicineDescription, VehicleDescription, WeaponDescription, FoodDescription FROM People a 
-INNER JOIN Transaction b ON b.PeopleID = a.PeopleID
+INNER JOIN Transactions b ON b.PeopleID = a.PeopleID
 INNER JOIN TransactionDetails c ON c.TransID = b.TransID
 INNER JOIN Weapons d ON d.WeaponID = c.WeaponID
 INNER JOIN Food e ON e.FoodID = c.FoodID
@@ -28,7 +28,7 @@ INNER JOIN Weapons h ON h.MedicineID = c.MedicineID
 --Query 5 Total Number of people in each settlement. 
 
 SELECT DISTINCT SettlementLocation, Count(PeopleID) AS NumberOfPeople FROM Settlements a 
-INNER JOIN PeopleSettlement b ON b.SettlementID = a.SettlementID
+INNER JOIN PeopleSettlements b ON b.SettlementID = a.SettlementID
 
 --Query 6 Which people on which missions
 
