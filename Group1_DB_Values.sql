@@ -326,11 +326,15 @@ INSERT [dbo].[PeopleJobs] ([PeopleID], [JobID], [Wage]) VALUES (N'P0119', N'J001
 INSERT [dbo].[PeopleJobs] ([PeopleID], [JobID], [Wage]) VALUES (N'P0120', N'J0014', 12.0000)
 GO
 GO
-INSERT [dbo].[PeopleMissions] ([PeopleID], [MissionID]) VALUES (N'P0042', N'M0001')
-INSERT [dbo].[PeopleMissions] ([PeopleID], [MissionID]) VALUES (N'P0012', N'M0001')
-INSERT [dbo].[PeopleMissions] ([PeopleID], [MissionID]) VALUES (N'P0078', N'M0001')
-INSERT [dbo].[PeopleMissions] ([PeopleID], [MissionID]) VALUES (N'P0001', N'M0001')
-INSERT [dbo].[PeopleMissions] ([PeopleID], [MissionID]) VALUES (N'P0066', N'M0001')
+INSERT [dbo].[PeopleMissions] ([PeopleID], [MissionID]) VALUES (N'P0042', N'Q0001')
+INSERT [dbo].[PeopleMissions] ([PeopleID], [MissionID]) VALUES (N'P0012', N'Q0001')
+INSERT [dbo].[PeopleMissions] ([PeopleID], [MissionID]) VALUES (N'P0078', N'Q0001')
+INSERT [dbo].[PeopleMissions] ([PeopleID], [MissionID]) VALUES (N'P0001', N'Q0001')
+INSERT [dbo].[PeopleMissions] ([PeopleID], [MissionID]) VALUES (N'P0066', N'Q0001')
+INSERT [dbo].[PeopleMissions] ([PeopleID], [MissionID]) VALUES (N'P0003', N'Q0002')
+INSERT [dbo].[PeopleMissions] ([PeopleID], [MissionID]) VALUES (N'P0025', N'Q0002')
+INSERT [dbo].[PeopleMissions] ([PeopleID], [MissionID]) VALUES (N'P0110', N'Q0002')
+INSERT [dbo].[PeopleMissions] ([PeopleID], [MissionID]) VALUES (N'P0090', N'Q0002')
 GO
 INSERT [dbo].[PeopleSettlements] ([PeopleID], [SettlementID]) VALUES (N'P0001', N'S0001')
 INSERT [dbo].[PeopleSettlements] ([PeopleID], [SettlementID]) VALUES (N'P0002', N'S0001')
